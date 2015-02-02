@@ -93,3 +93,59 @@ binary('why', 'hello', 'there');
 
 variadic(binary)('why', 'hello', 'there');
 */
+
+/**
+ * K Combinator - basic combinator
+ */
+
+function K(x) {
+  return function(y) {
+    return x;
+  };
+}
+
+/**
+ * Tap function
+ * Takes a value and returns the value. If a function is passed as the
+ * value then the function is executed and the value is returned
+ */
+
+function tap(value) {
+  return function (fn) {
+    if (typeof(fn) === 'function') {
+      fn(value);
+    }
+    return value;
+  };
+}
+
+/* tap example
+var drink = tap('espresso')(function (it) {
+  console.log('Our drink is', it);
+});
+*/
+
+/**
+ * Curried tap function
+ */
+
+function tap(value, fn) {
+  if (fn === void 0) {
+    return curried;
+  } else {
+    return curried(fn);
+  }
+
+  function curried(fn) {
+    if (typeof(fn) === 'function') {
+      fn(value);
+    }
+    return value;
+  }
+}
+
+/* Curried tap example
+var drink = tap('curry', function (it) {
+  console.log('Our drink is', it);
+});
+*/
