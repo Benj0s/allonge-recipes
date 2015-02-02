@@ -26,7 +26,7 @@ var doubleOfAddOne = compose(double, addOne);
 */
 
 /**
- * Function decorators
+ * Decorator function
  * Takes one function and returns another function variation of the argument function
  */
 
@@ -46,3 +46,32 @@ function something(x) {
 
 var nothing = not(something);
 */
+
+/**
+ * Variadic function
+ * Function which accepts an indefinite number of arguments
+ */
+
+var _slice = Array.prototype.slice;
+
+function variadic(fn) {
+  var fnLength = fn.length;
+
+  if (fnLength < 1) {
+    return fn;
+  } else if (fnLength === 1) {
+    return function () {
+      return fn.call(this, _slice.call(arguments, 0));
+    };
+  } else {
+    return function () {
+      var numberOfArgs = arguments.length,
+          namedArgs = _slice.call(arguments, 0, fnLength - 1),
+          numberOfMissingNamedArgs = Math.max(fnLength - numberOfArgs - 1, 0),
+          argPadding = new Array(numberOfMissingNamedArgs),
+          variadicArgs = _slice.call(arguments, fn.length - 1);
+
+      return fn.apply(this, namedArgs.concat(argPadding).concat([variadicArgs]));
+    };
+  }
+}
