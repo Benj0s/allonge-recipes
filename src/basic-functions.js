@@ -75,3 +75,21 @@ function variadic(fn) {
     };
   }
 }
+
+/* Variadic function examples
+function unary(first) {
+  return first;
+}
+
+unary('why', 'hello', 'there');
+
+variadic(unary)('why', 'hello', 'there');
+
+function binary(first, rest) {
+  return [first, rest];
+}
+
+binary('why', 'hello', 'there');
+
+variadic(binary)('why', 'hello', 'there');
+*/
