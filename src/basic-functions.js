@@ -149,3 +149,38 @@ var drink = tap('curry', function (it) {
   console.log('Our drink is', it);
 });
 */
+
+/**
+ * Maybe function
+ * Checks to see if
+ */
+
+function maybe (fn) {
+  return function () {
+    var i;
+
+    if (arguments.length === 0) {
+      return;
+    } else {
+      for (i = 0; i < arguments.length; i++) {
+        if (arguments[i] === null) {
+          return;
+        }
+      }
+      return fn.apply(this, arguments);
+    }
+  };
+}
+
+/* maybe example
+var checksForSomething = maybe(function (value) {
+  // logic run if maybe is true
+});
+*/
+
+/**
+ * Even function
+ */
+var even = function (num) {
+  return (num === 0) || !(even(num - 1));
+};
